@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GAMELAN — The Soul of Indonesian Music</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Jost:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #d4af37;
+      --dark: #1a1613;
+      --cream: #faf9f6;
+      --cream-mid: #f5e6d3;
+    }
+
+    * {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Navbar */
+    #navbar {
+      transition: background 0.3s;
+    }
+
+    #navbar.scrolled {
+      background: rgba(26, 22, 19, 0.97);
+    }
+
+    /* Hero parallax */
+    #hero-bg {
+      will-change: transform;
+    }
+
+    /* Animations */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scale-in {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .scale-in.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Instrument cards */
+    .instrument-card img {
+      transition: transform 0.6s ease;
+    }
+
+    .instrument-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .instrument-card .overlay-info {
+      transition: opacity 0.3s ease;
+    }
+
+    /* Gallery carousel */
+    .carousel-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-slide {
+      flex: 0 0 calc(33.333% - 11px);
+    }
+
+    @media (max-width: 1024px) {
+      .carousel-slide {
+        flex: 0 0 calc(50% - 8px);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .carousel-slide {
+        flex: 0 0 100%;
+      }
+    }
+
+    .gallery-img-wrap {
+      overflow: hidden;
+      border-radius: 8px;
+      aspect-ratio: 4/5;
+    }
+
+    .gallery-img-wrap img {
+      transition: transform 0.4s ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-img-wrap:hover img {
+      transform: scale(1.06);
+    }
+
+    /* Video hover */
+    .video-card iframe {
+      pointer-events: none;
+    }
+
+    .video-card:hover {
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+    }
+
+    /* Sim card */
+    .sim-card {
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .sim-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Gold underline decoration */
+    .gold-line::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 16px auto 0;
+    }
+
+    /* Chevron bounce */
+    @keyframes bounce-y {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(10px)
+      }
+    }
+
+    #chevron {
+      animation: bounce-y 2s ease-in-out infinite;
+    }
+
+    /* Mobile menu slide */
+    #mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    #mobile-menu.open {
+      max-height: 400px;
+    }
+
+    /* Modal */
+    #modal {
+      transition: opacity 0.3s;
+    }
+
+    #modal-inner {
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* Counter */
+    .counter {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Dots */
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #555;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active {
+      background: var(--gold);
+    }
+
+    /* QR pattern */
+    .qr-cell {
+      border-radius: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-[#1a1613]/95 backdrop-blur-sm text-[#f5e6d3]">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 hover:scale-105 transition-transform">
+        <span class="text-2xl font-bold tracking-tight" style="font-family:'Playfair Display',serif;">GAMELAN</span>
+      </a>
+
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#instruments"
+          class="text-sm tracking-widest hover:text-[#d4af37] transition-colors uppercase">Instruments</a>
+        <a href="#culture" class="text-sm tracking-widest hover:text-[#d4af37] transition-colors uppercase">Explore</a>
+        <a href="#gallery" class="text-sm tracking-widest hover:text-[#d4af37] transition-colors uppercase">Gallery</a>
+        <a href="#about" class="text-sm tracking-widest hover:text-[#d4af37] transition-colors uppercase">About</a>
+        <button id="audio-btn" onclick="toggleAudio()" class="p-2 hover:text-[#d4af37] transition-colors"
+          title="Play Music">
+          <!-- Muted icon -->
+          <svg id="icon-muted" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M11 5 6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <!-- Playing icon -->
+          <svg id="icon-playing" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path d="M11 5 6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button onclick="toggleMenu()" class="md:hidden p-1">
+        <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
+        </svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden bg-[#1a1613] border-t border-[#f5e6d3]/20">
+      <div class="px-4 py-4 flex flex-col gap-4">
+        <a href="#instruments" onclick="closeMenu()"
+          class="text-sm tracking-widest hover:text-[#d4af37] transition-colors uppercase">Instruments</a>
+        <a href="#culture" onclick="closeMenu()"
+          class="text-sm tracking-widest hover:text-[#d4af37] transition-colors uppercase">Explore</a>
+        <a href="#gallery" onclick="closeMenu()"
+          class="text-sm tracking-widest hover:text-[#d4af37] transition-colors uppercase">Gallery</a>
+        <a href="#about" onclick="closeMenu()"
+          class="text-sm tracking-widest hover:text-[#d4af37] transition-colors uppercase">About</a>
+        <button onclick="toggleAudio()"
+          class="flex items-center gap-2 text-sm tracking-widest hover:text-[#d4af37] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13M9 9l12-2M4 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM16 13a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"
+              stroke-linecap="round" />
+          </svg>
+          <span id="audio-label">Play Music</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0" id="hero-bg">
+      <img
+        src="https://images.unsplash.com/photo-1775114305712-4fdb43165a99?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
+        alt="Gamelan ensemble" class="w-full h-full object-cover" />
+      <span
+        class="absolute top-4 right-4 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20">AI
+        Generated</span>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+    </div>
+
+    <div id="hero-content" class="relative z-10 text-center px-4 max-w-4xl fade-in-up" style="transition-delay:0.1s">
+      <div class="mb-6">
+        <span
+          class="inline-block px-4 py-2 bg-[#d4af37]/20 border border-[#d4af37] text-[#d4af37] text-sm tracking-widest">
+          TRADITIONAL INDONESIAN MUSIC
+        </span>
+      </div>
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-none">
+        The Soul of<br />
+        <span class="text-[#d4af37]">Gamelan</span>
+      </h1>
+      <p class="text-lg md:text-xl text-gray-200 mb-12 max-w-2xl mx-auto leading-relaxed">
+        Experience the hypnotic beauty of Indonesia's ancient musical tradition,<br class="hidden md:inline" />
+        where bronze meets rhythm in perfect harmony
+      </p>
+      <div id="chevron">
+        <svg class="w-10 h-10 text-[#d4af37] mx-auto" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTRUMENTS -->
+  <section id="instruments" class="py-20 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-16 fade-in-up">
+        <h2 class="text-4xl md:text-6xl font-bold text-[#1a1613] mb-4 gold-line">The Instruments</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-4">
+          Each instrument plays a vital role in creating the intricate tapestry of gamelan music
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+        <!-- Kendang -->
+        <div class="instrument-card group relative overflow-hidden rounded-lg cursor-pointer bg-black fade-in-up"
+          style="transition-delay:0s" onclick="toggleInstrument(this)">
+          <img src="https://lh3.googleusercontent.com/d/1cxfLpTs_MBjUJugWd1Heann5Dp51erFm" alt="Kendang"
+            class="w-full h-full object-cover" />
+          alt="Kendang" class="w-full h-[400px] object-cover"/>
+          <span
+            class="absolute top-3 right-3 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20 z-10">AI
+            Generated</span>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+            <h3 class="text-3xl md:text-4xl font-bold mb-3">Kendang</h3>
+            <p class="text-gray-300 leading-relaxed">A traditional drum that leads the tempo and rhythm of the gamelan
+              performance.</p>
+            <div
+              class="instrument-badge mt-4 inline-block px-4 py-2 bg-[#d4af37] text-black text-sm font-semibold rounded opacity-0 transition-opacity duration-300">
+              Learn More</div>
+          </div>
+        </div>
+
+        <!-- Saron -->
+        <div class="instrument-card group relative overflow-hidden rounded-lg cursor-pointer bg-black fade-in-up"
+          style="transition-delay:0.1s" onclick="toggleInstrument(this)">
+          <img src="https://lh3.googleusercontent.com/d/1GYWGybNjx8ndzTvQUAeK4lVFGNSf6wPl" alt="saron"
+            class="w-full h-[400px] object-cover" />
+          <span
+            class="absolute top-3 right-3 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20 z-10">AI
+            Generated</span>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+            <h3 class="text-3xl md:text-4xl font-bold mb-3">Saron</h3>
+            <p class="text-gray-300 leading-relaxed">A bronze metallophone that plays the main melody in gamelan music.
+            </p>
+            <div
+              class="instrument-badge mt-4 inline-block px-4 py-2 bg-[#d4af37] text-black text-sm font-semibold rounded opacity-0 transition-opacity duration-300">
+              Learn More</div>
+          </div>
+        </div>
+
+        <!-- Bonang -->
+        <div class="instrument-card group relative overflow-hidden rounded-lg cursor-pointer bg-black fade-in-up"
+          style="transition-delay:0.2s" onclick="toggleInstrument(this)">
+          <img src="https://lh3.googleusercontent.com/d/1aENw0WYxPwM9H712r0yVMKF6cmd-tRiI" alt="bonang"
+            class="w-full h-[400px] object-cover" />
+          <span
+            class="absolute top-3 right-3 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20 z-10">AI
+            Generated</span>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+            <h3 class="text-3xl md:text-4xl font-bold mb-3">Bonang</h3>
+            <p class="text-gray-300 leading-relaxed">A set of small gongs that enrich the melody with distinctive
+              rhythmic patterns.</p>
+            <div
+              class="instrument-badge mt-4 inline-block px-4 py-2 bg-[#d4af37] text-black text-sm font-semibold rounded opacity-0 transition-opacity duration-300">
+              Learn More</div>
+          </div>
+        </div>
+
+        <!-- Gong Ageng -->
+        <div class="instrument-card group relative overflow-hidden rounded-lg cursor-pointer bg-black fade-in-up"
+          style="transition-delay:0.3s" onclick="toggleInstrument(this)">
+          <img src="https://lh3.googleusercontent.com/d/1N7fo0yOes-PiI0ngTTtGf-7i2z4NfOOi" alt="gong ageng"
+            class="w-full h-[400px] object-cover" />
+          <span
+            class="absolute top-3 right-3 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20 z-10">AI
+            Generated</span>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+            <h3 class="text-3xl md:text-4xl font-bold mb-3">Gong Ageng</h3>
+            <p class="text-gray-300 leading-relaxed">The largest gong in the gamelan ensemble, marking important musical
+              phrases and transitions.</p>
+            <div
+              class="instrument-badge mt-4 inline-block px-4 py-2 bg-[#d4af37] text-black text-sm font-semibold rounded opacity-0 transition-opacity duration-300">
+              Learn More</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CULTURE / MEDIA RESOURCES -->
+  <section id="culture" class="py-20 md:py-32 bg-[#faf9f6]">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-16 fade-in-up">
+        <h2 class="text-4xl md:text-6xl font-bold text-[#1a1613] mb-4 gold-line">Explore &amp; Experience</h2>
+        <p class="text-lg text-gray-600 mt-4">Watch, listen, and interact with gamelan culture</p>
+      </div>
+
+      <!-- YouTube Videos -->
+      <div class="mb-20">
+        <div class="flex items-center gap-3 mb-8">
+          <svg class="w-6 h-6 text-[#d4af37]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <h3 class="text-2xl md:text-3xl font-bold text-[#1a1613]">Featured Videos</h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- Video cards -->
+          <a href="https://www.youtube.com/watch?v=8uy7G2JXVSA" target="_blank"
+            class="video-card group fade-in-up block">
+
+            <div class="relative overflow-hidden rounded-lg aspect-video mb-4">
+              <img src="https://img.youtube.com/vi/8uy7G2JXVSA/maxresdefault.jpg" alt="Traditional Gamelan Performance"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <span class="inline-block px-2 py-1 bg-[#d4af37]/20 text-[#1a1613] text-xs font-semibold rounded">
+              Performance
+            </span>
+
+            <h4 class="mt-2 font-bold text-[#1a1613] group-hover:text-[#d4af37] transition-colors">
+              Lathi Performance
+            </h4>
+          </a>
+
+          <a href="https://www.youtube.com/watch?v=jU8m_fh5DRg" target="_blank"
+            class="video-card group fade-in-up block">
+
+            <div class="relative overflow-hidden rounded-lg aspect-video mb-4">
+              <img src="https://img.youtube.com/vi/jU8m_fh5DRg/maxresdefault.jpg" alt="Gamelan Performance"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <span class="inline-block px-2 py-1 bg-[#d4af37]/20 text-[#1a1613] text-xs font-semibold rounded">
+              Performance
+            </span>
+
+            <h4 class="mt-2 font-bold text-[#1a1613] group-hover:text-[#d4af37] transition-colors">
+              National Song - Tanah Air
+            </h4>
+          </a>
+
+          <a href="https://www.youtube.com/watch?v=FF4GB3itpAk" target="_blank"
+            class="video-card group fade-in-up block">
+
+            <div class="relative overflow-hidden rounded-lg aspect-video mb-4">
+              <img src="https://img.youtube.com/vi/FF4GB3itpAk/hqdefault.jpg" alt="Video"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <span class="inline-block px-2 py-1 bg-[#d4af37]/20 text-[#1a1613] text-xs font-semibold rounded">
+              Music
+            </span>
+
+            <h4 class="mt-2 font-bold text-[#1a1613] group-hover:text-[#d4af37] transition-colors">
+              Javanese ft Electronc Music
+            </h4>
+          </a>
+
+          <a href="https://www.youtube.com/watch?v=UCDI0rblZQs" target="_blank"
+            class="video-card group fade-in-up block">
+
+            <div class="relative overflow-hidden rounded-lg aspect-video mb-4">
+              <img src="https://img.youtube.com/vi/UCDI0rblZQs/maxresdefault.jpg" alt="Video"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <span class="inline-block px-2 py-1 bg-[#d4af37]/20 text-[#1a1613] text-xs font-semibold rounded">
+              Music
+            </span>
+
+            <h4 class="mt-2 font-bold text-[#1a1613] group-hover:text-[#d4af37] transition-colors">
+              Indonesian Girl Group Song featuring Gamelan
+            </h4>
+          </a>
+
+
+          <a href="https://www.youtube.com/watch?v=XXWRwG4OP8g" target="_blank"
+            class="video-card group fade-in-up block">
+
+            <div class="relative overflow-hidden rounded-lg aspect-video mb-4">
+              <img src="https://img.youtube.com/vi/XXWRwG4OP8g/hqdefault.jpg" alt="Video"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <span class="inline-block px-2 py-1 bg-[#d4af37]/20 text-[#1a1613] text-xs font-semibold rounded">
+              Music
+            </span>
+
+            <h4 class="mt-2 font-bold text-[#1a1613] group-hover:text-[#d4af37] transition-colors">
+              Modern Gamelan
+            </h4>
+          </a>
+
+
+        </div>
+      </div>
+
+      <!-- Interactive Simulations -->
+      <div class="mb-20">
+        <div class="flex items-center gap-3 mb-8">
+          <svg class="w-6 h-6 text-[#d4af37]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <h3 class="text-2xl md:text-3xl font-bold text-[#1a1613]">
+            Interactive Experiences
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <a href="https://www.good-vibrations.org.uk/gamelan-room/?instrument=room" target="_blank"
+            rel="noopener noreferrer"
+            class="sim-card group relative overflow-hidden rounded-lg bg-white shadow-lg block fade-in-up"
+            style="transition-delay:0.1s">
+
+            <div class="relative h-64 overflow-hidden">
+
+              <img src="https://images.unsplash.com/photo-1514119412350-e174d90d280e?auto=format&fit=crop&w=1200&q=80"
+                alt="Virtual Gamelan Room"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+              <span
+                class="absolute top-3 left-3 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20">
+                Interactive
+              </span>
+
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+              <div class="absolute bottom-4 left-4 right-4">
+                <h4 class="text-xl font-bold text-white mb-2">
+                  Virtual Gamelan Room
+                </h4>
+                <p class="text-gray-200 text-sm">
+                  Play and explore gamelan instruments in an interactive virtual environment
+                </p>
+              </div>
+
+              <div
+                class="absolute top-4 right-4 w-12 h-12 bg-[#d4af37] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+
+                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+              </div>
+            </div>
+
+            <div class="p-6 bg-white">
+              <div class="flex items-center gap-2 text-[#d4af37] font-semibold">
+                <span>Launch Experience</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </div>
+
+          </a>
+
+        </div>
+      </div>
+      <!-- QR Codes -->
+      <div>
+
+      </div>
+    </div>
+
+    </div>
+  </section>
+
+  <!-- GALLERY CAROUSEL -->
+  <section id="gallery" class="py-20 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-16 fade-in-up">
+        <h2 class="text-4xl md:text-6xl font-bold text-[#1a1613] mb-4 gold-line">Visual Journey</h2>
+        <p class="text-lg text-gray-600 mt-4">Witness the beauty and tradition of gamelan performances</p>
+      </div>
+
+      <div class="relative overflow-hidden">
+        <div id="carousel-track" class="carousel-track">
+          <!-- Slides injected by JS -->
+        </div>
+      </div>
+
+      <!-- Dots -->
+      <div id="carousel-dots" class="flex justify-center gap-2 mt-8"></div>
+
+      <!-- Prev / Next -->
+      <div class="flex justify-center gap-4 mt-4">
+        <button onclick="carouselPrev()"
+          class="w-10 h-10 rounded-full border border-[#1a1613] flex items-center justify-center hover:bg-[#d4af37] hover:border-[#d4af37] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M15 18l-6-6 6-6" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button onclick="carouselNext()"
+          class="w-10 h-10 rounded-full border border-[#1a1613] flex items-center justify-center hover:bg-[#d4af37] hover:border-[#d4af37] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 18l6-6-6-6" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="about" class="bg-[#1a1613] text-white py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <svg class="w-8 h-8 text-[#d4af37]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 18V5l12-2v13M9 9l12-2M4 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM16 13a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"
+                stroke-linecap="round" />
+            </svg>
+            <span class="text-2xl font-bold" style="font-family:'Playfair Display',serif;">GAMELAN</span>
+          </div>
+          <p class="text-gray-400 leading-relaxed">Preserving and celebrating Indonesia's rich musical heritage for
+            generations to come.</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4 text-[#d4af37]">Explore</h4>
+          <div class="space-y-2">
+            <div><a href="#instruments" class="text-gray-400 hover:text-[#d4af37] transition-colors">Instruments</a>
+            </div>
+            <div><a href="#culture" class="text-gray-400 hover:text-[#d4af37] transition-colors">Explore</a></div>
+            <div><a href="#gallery" class="text-gray-400 hover:text-[#d4af37] transition-colors">Gallery</a></div>
+            <div><a href="#" class="text-gray-400 hover:text-[#d4af37] transition-colors">Events</a></div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4 text-[#d4af37]">Connect</h4>
+          <div class="space-y-2">
+            <div><a href="#" class="text-gray-400 hover:text-[#d4af37] transition-colors">Newsletter</a></div>
+            <div><a href="#" class="text-gray-400 hover:text-[#d4af37] transition-colors">Contact</a></div>
+            <div><a href="#" class="text-gray-400 hover:text-[#d4af37] transition-colors">Support</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+        <p>© 2026 Gamelan Magazine. Celebrating Indonesian musical heritage.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- IMAGE MODAL -->
+  <div id="modal"
+    class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer opacity-0 pointer-events-none"
+    onclick="closeModal(event)">
+    <div id="modal-inner"
+      class="relative max-w-5xl max-h-[90vh] cursor-default scale-95 opacity-0 transition-all duration-300"
+      onclick="event.stopPropagation()">
+      <button onclick="closeModalBtn()"
+        class="absolute -top-12 right-0 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="relative">
+        <img id="modal-img" src="" alt="" class="max-w-full max-h-[85vh] rounded-lg object-contain" />
+        <span
+          class="absolute top-4 right-4 px-4 py-2 bg-black/70 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/20">AI
+          Generated</span>
+      </div>
+      <div class="mt-4 text-center">
+        <h3 id="modal-title" class="text-2xl font-bold text-white mb-2"></h3>
+        <p class="text-gray-400 text-sm">Klik di luar atau tekan ESC untuk menutup</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="bg-audio" loop preload="none">
+    <source src="https://cdn.creazilla.com/sounds/15509454/gender-wayang-1928-sound.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* =========================================================
+       AUDIO
+    ========================================================= */
+    let playing = false;
+    const audio = document.getElementById('bg-audio');
+    audio.volume = 0.3;
+
+    function toggleAudio() {
+      if (playing) {
+        audio.pause();
+        document.getElementById('icon-muted').classList.remove('hidden');
+        document.getElementById('icon-playing').classList.add('hidden');
+        document.getElementById('audio-label').textContent = 'Play Music';
+      } else {
+        audio.play();
+        document.getElementById('icon-muted').classList.add('hidden');
+        document.getElementById('icon-playing').classList.remove('hidden');
+        document.getElementById('audio-label').textContent = 'Pause Music';
+      }
+      playing = !playing;
+    }
+
+    /* =========================================================
+       NAVBAR scroll effect
+    ========================================================= */
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================= */
+    function toggleMenu() {
+      const m = document.getElementById('mobile-menu');
+      const ico = document.getElementById('icon-menu');
+      const clo = document.getElementById('icon-close');
+      m.classList.toggle('open');
+      ico.classList.toggle('hidden');
+      clo.classList.toggle('hidden');
+    }
+    function closeMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('icon-menu').classList.remove('hidden');
+      document.getElementById('icon-close').classList.add('hidden');
+    }
+
+    /* =========================================================
+       INSTRUMENT CARDS toggle
+    ========================================================= */
+    function toggleInstrument(card) {
+      const badge = card.querySelector('.instrument-badge');
+      badge.classList.toggle('opacity-0');
+      badge.classList.toggle('opacity-100');
+    }
+
+    /* =========================================================
+       SCROLL ANIMATIONS (IntersectionObserver)
+    ========================================================= */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          // trigger counters when stats section hits
+          if (e.target.classList.contains('counter')) {
+            animateCounter(e.target);
+          }
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in-up, .scale-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.counter').forEach(el => observer.observe(el));
+
+    // trigger hero immediately
+    setTimeout(() => {
+      document.getElementById('hero-content').classList.add('visible');
+    }, 200);
+
+    /* =========================================================
+       COUNTER ANIMATION
+    ========================================================= */
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1500;
+      const step = target / (duration / 16);
+      let current = 0;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = Math.floor(current).toLocaleString() + suffix;
+        if (current >= target) clearInterval(timer);
+      }, 16);
+    }
+
+    /* =========================================================
+       GALLERY CAROUSEL
+    ========================================================= */
+    const galleryItems = [
+      { url: "https://lh3.googleusercontent.com/d/1N7fo0yOes-PiI0ngTTtGf-7i2z4NfOOi", title: "Gong Ageng" },
+      { url: "https://lh3.googleusercontent.com/d/1aENw0WYxPwM9H712r0yVMKF6cmd-tRiI", title: "Bonang" },
+      { url: "https://lh3.googleusercontent.com/d/1GYWGybNjx8ndzTvQUAeK4lVFGNSf6wPl", title: "Saron" },
+      { url: "https://lh3.googleusercontent.com/d/1cxfLpTs_MBjUJugWd1Heann5Dp51erFm", title: "Kendang" }
+    ];
+
+    let carouselIndex = 0;
+    let slidesPerView = 3;
+    let autoplayTimer;
+
+    function getSlidesPerView() {
+      if (window.innerWidth < 640) return 1;
+      if (window.innerWidth < 1024) return 2;
+      return 3;
+    }
+
+    function buildCarousel() {
+      slidesPerView = getSlidesPerView();
+      const track = document.getElementById('carousel-track');
+      track.innerHTML = '';
+      galleryItems.forEach((item, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        slide.innerHTML = `
+        <div class="gallery-img-wrap cursor-pointer relative group" onclick="openModal('${item.url.replace('w=800', 'w=1600')}','${item.title}')">
+          <img src="${item.url}" alt="${item.title}" loading="lazy"/>
+          <span class="absolute top-3 right-3 px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20">AI Generated</span>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <h4 class="font-bold text-lg">${item.title}</h4>
+          </div>
+        </div>`;
+        track.appendChild(slide);
+      });
+      buildDots();
+      goToSlide(0);
+    }
+
+    function buildDots() {
+      const dotsEl = document.getElementById('carousel-dots');
+      const total = galleryItems.length - slidesPerView + 1;
+      dotsEl.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.onclick = () => goToSlide(i);
+        dotsEl.appendChild(d);
+      }
+    }
+
+    function goToSlide(idx) {
+      const maxIdx = galleryItems.length - slidesPerView;
+      carouselIndex = Math.max(0, Math.min(idx, maxIdx));
+      const slideWidth = document.querySelector('.carousel-slide')?.offsetWidth || 0;
+      const gap = 16;
+      document.getElementById('carousel-track').style.transform = `translateX(-${carouselIndex * (slideWidth + gap)}px)`;
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === carouselIndex));
+    }
+
+    function carouselNext() {
+      const max = galleryItems.length - slidesPerView;
+      goToSlide(carouselIndex >= max ? 0 : carouselIndex + 1);
+      resetAutoplay();
+    }
+    function carouselPrev() {
+      const max = galleryItems.length - slidesPerView;
+      goToSlide(carouselIndex <= 0 ? max : carouselIndex - 1);
+      resetAutoplay();
+    }
+
+    function startAutoplay() {
+      autoplayTimer = setInterval(carouselNext, 3500);
+    }
+    function resetAutoplay() {
+      clearInterval(autoplayTimer);
+      startAutoplay();
+    }
+
+    window.addEventListener('resize', () => {
+      buildCarousel();
+    });
+
+    buildCarousel();
+    startAutoplay();
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+    function openModal(src, title) {
+      const modal = document.getElementById('modal');
+      const inner = document.getElementById('modal-inner');
+      document.getElementById('modal-img').src = src;
+      document.getElementById('modal-title').textContent = title;
+      modal.style.opacity = '0';
+      modal.style.pointerEvents = 'all';
+      modal.classList.remove('pointer-events-none');
+      setTimeout(() => {
+        modal.style.opacity = '1';
+        inner.style.transform = 'scale(1)';
+        inner.style.opacity = '1';
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+      if (e.target !== document.getElementById('modal')) return;
+      closeModalBtn();
+    }
+
+    function closeModalBtn() {
+      const modal = document.getElementById('modal');
+      const inner = document.getElementById('modal-inner');
+      modal.style.opacity = '0';
+      inner.style.transform = 'scale(0.92)';
+      inner.style.opacity = '0';
+      setTimeout(() => {
+        modal.style.pointerEvents = 'none';
+        modal.classList.add('pointer-events-none');
+        document.getElementById('modal-img').src = '';
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModalBtn();
+    });
+
+    /* =========================================================
+       QR CODE (simple canvas-drawn pattern)
+    ========================================================= */
+    function drawQR(canvasId, seed) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const size = 160;
+      const cells = 21;
+      const cellSize = size / cells;
+      ctx.fillStyle = '#1a1613';
+      ctx.fillRect(0, 0, size, size);
+
+      // deterministic pseudo-random based on seed
+      let s = seed;
+      function rand() {
+        s = (s * 1664525 + 1013904223) & 0xffffffff;
+        return (s >>> 0) / 0xffffffff;
+      }
+
+      for (let r = 0; r < cells; r++) {
+        for (let c = 0; c < cells; c++) {
+          const v = rand() > 0.5;
+          // corner finder patterns
+          const inCorner = (r < 7 && c < 7) || (r < 7 && c > cells - 8) || (r > cells - 8 && c < 7);
+          if (inCorner) {
+            // draw finder boxes
+            const pr = r % 7, pc = c % 7;
+            const inner = pr >= 1 && pr <= 5 && pc >= 1 && pc <= 5;
+            const outerRing = pr === 0 || pr === 6 || pc === 0 || pc === 6;
+            const innerCore = pr >= 2 && pr <= 4 && pc >= 2 && pc <= 4;
+            ctx.fillStyle = (outerRing || innerCore) ? '#ffffff' : '#1a1613';
+          } else {
+            ctx.fillStyle = v ? '#ffffff' : '#1a1613';
+          }
+          ctx.fillRect(c * cellSize + 1, r * cellSize + 1, cellSize - 2, cellSize - 2);
+        }
+      }
+
+      // Gold QR icon overlay center
+      ctx.fillStyle = '#d4af37';
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, 18, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#1a1613';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('QR', size / 2, size / 2);
+    }
+
+    drawQR('qr1', 42);
+    drawQR('qr2', 137);
+
+    /* =========================================================
+       PARALLAX hero
+    ========================================================= */
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const heroBg = document.getElementById('hero-bg');
+      if (heroBg && y < window.innerHeight) {
+        heroBg.style.transform = `translateY(${y * 0.4}px)`;
+      }
+    });
+  </script>
+</body>
+
+</html>
